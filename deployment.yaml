@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: taxi-booking
+  namespace: taxi
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app:  taxi-booking
+  template:
+    metadata:
+      labels:
+        app:  taxi-booking
+    spec:
+      imagePullSecrets:
+      - name: jfrogcred
+      containers:
+      - name:  taxi-booking
+        image: taxiappbooking.jfrog.io/taxi-docker-local/taxiapp:1.0.1
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
